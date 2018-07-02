@@ -1377,18 +1377,44 @@ definitions:
                 format: int32
                 minimum: 0
                 example: 0
-          numErrors:
-            description: Number of logged errors
-            type: integer
-            format: int32
-            minimum: 0
-            example: 0
-          numWarnings:
-            description: Number of logged warnings
-            type: integer
-            format: int32
-            minimum: 0
-            example: 0
+          logs:
+            type: object
+            properties:
+              loggingLevels:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    format: int32
+                    example: 40
+                  warning:
+                    type: integer
+                    format: int32
+                    example: 30
+                  info:
+                    type: integer
+                    format: int32
+                    example: 20
+                  debug:
+                    type: integer
+                    format: int32
+                    example: 10
+                  db:
+                    type: integer
+                    format: int32
+                    example: 5
+              numErrors:
+                description: Number of logged errors
+                type: integer
+                format: int32
+                minimum: 0
+                example: 0
+              numWarnings:
+                description: Number of logged warnings
+                type: integer
+                format: int32
+                minimum: 0
+                example: 0
   Log:
     type: object
     properties:
