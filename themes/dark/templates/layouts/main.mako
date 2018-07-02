@@ -68,23 +68,7 @@
                </div><!-- /content -->
             <app-footer></app-footer>
 
-            <div class="scroll-wrapper top">
-                <span class="scroll-top-inner">
-                    <i class="glyphicon glyphicon-circle-arrow-up"></i>
-                </span>
-            </div>
-
-            <div class="scroll-wrapper left">
-                <span class="scroll-left-inner">
-                    <i id="scroll-left" class="glyphicon glyphicon-circle-arrow-left"></i>
-                </span>
-            </div>
-
-            <div class="scroll-wrapper right">
-                <span class="scroll-right-inner">
-                    <i id="scroll-right" class="glyphicon glyphicon-circle-arrow-right"></i>
-                </span>
-            </div>
+            <scroll-buttons></scroll-buttons>
         </div>
         <script type="text/javascript" src="js/vender${('.min', '')[app.DEVELOPER]}.js?${sbPID}"></script>
         <script type="text/javascript" src="js/lib/bootstrap-formhelpers.min.js?${sbPID}"></script>
@@ -148,6 +132,7 @@
             Vue.component('app-link', httpVueLoader('js/templates/app-link.vue'));
         </script>
         <%include file="/vue-components/app-footer.mako"/>
+        <%include file="/vue-components/scroll-buttons.mako"/>
         <%include file="/vue-components/asset.mako"/>
         <%include file="/vue-components/file-browser.mako"/>
         <%include file="/vue-components/plot-info.mako"/>
