@@ -12,6 +12,7 @@
   - `/addShows` - Add Shows ([#4564](https://github.com/pymedusa/Medusa/pull/4564))
   - `/addRecommended` - Add Recommended Shows ([#4564](https://github.com/pymedusa/Medusa/pull/4564))
 - Removed the old `/ui` route ([#4565](https://github.com/pymedusa/Medusa/pull/4565))
+- Converted the footer to Vue ([#4520](https://github.com/pymedusa/Medusa/pull/4520))
 - _Simple message describing the improvement, and a link to the pull request._
 
 **Fixes**
