@@ -26,7 +26,7 @@
                         <template v-if="recentShows.length > 0">
                         <li role="separator" class="divider"></li>
                         <li v-for="recentShow in recentShows">
-                            <app-link :indexer-id="String(recentShow.indexer)" :href="'home/displayShow?indexername=indexer-to-name&amp;seriesid=' + recentShow.indexerid">
+                            <app-link :href="recentShow.link">
                                 <i class="menu-icon-addshow"></i>&nbsp;{{ recentShow.name }}
                             </app-link>
                         </li>
@@ -117,8 +117,6 @@ Vue.component('app-header', {
     data() {
         return {
             // Python conversions
-            recentShows: ${json.dumps(app.SHOWS_RECENT)},
-
             <% has_emby_api_key = json.dumps(app.EMBY_APIKEY != '') %>
             hasEmbyApiKey: ${has_emby_api_key},
 
@@ -140,6 +138,17 @@ Vue.component('app-header', {
         },
         username() {
             return this.$store.state.auth.user.username;
+        },
+        recentShows() {
+            const { config } = this;
+            const { recentShows } = config;
+            return recentShows.map(show => {
+                const { name, indexerName, showId } = show;
+                <%text>
+                const link = `home/displayShow?indexername=${indexerName}&seriesid=${showId}`;
+                </%text>
+                return { name, link };
+            });
         },
         topMenu() {
             // This is a workaround, until we're able to use VueRouter to determine that.
