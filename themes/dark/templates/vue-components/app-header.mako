@@ -52,7 +52,7 @@
                         <li v-if="linkVisible.plex"><app-link href="home/updatePLEX/"><i class="menu-icon-plex"></i>&nbsp;Update PLEX</app-link></li>
                         <li v-if="linkVisible.kodi"><app-link href="home/updateKODI/"><i class="menu-icon-kodi"></i>&nbsp;Update KODI</app-link></li>
                         <li v-if="linkVisible.emby"><app-link href="home/updateEMBY/"><i class="menu-icon-emby"></i>&nbsp;Update Emby</app-link></li>
-                        ## Avoid mixed content blocking by open manage torrent in new tab
+                        <!-- Avoid mixed content blocking by open manage torrent in new tab -->
                         <li v-if="linkVisible.manageTorrents"><app-link href="manage/manageTorrents/" target="_blank"><i class="menu-icon-bittorrent"></i>&nbsp;Manage Torrents</app-link></li>
                         <li v-if="linkVisible.failedDownloads"><app-link href="manage/failedDownloads/"><i class="menu-icon-failed-download"></i>&nbsp;Failed Downloads</app-link></li>
                         <li v-if="linkVisible.subtitleMissed"><app-link href="manage/subtitleMissed/"><i class="menu-icon-backlog"></i>&nbsp;Missed Subtitle Management</app-link></li>
@@ -95,7 +95,7 @@
                         <li><app-link :href="'home/updateCheck?pid=' + config.pid"><i class="menu-icon-update"></i>&nbsp;Check For Updates</app-link></li>
                         <li><app-link :href="'home/restart/?pid=' + config.pid" class="confirm restart"><i class="menu-icon-restart"></i>&nbsp;Restart</app-link></li>
                         <li><app-link :href="'home/shutdown/?pid=' + config.pid" class="confirm shutdown"><i class="menu-icon-shutdown"></i>&nbsp;Shutdown</app-link></li>
-                        <li v-if="loggedIn !== true"><app-link href="logout" class="confirm logout"><i class="menu-icon-shutdown"></i>&nbsp;Logout</app-link></li>
+                        <li v-if="username"><app-link href="logout" class="confirm logout"><i class="menu-icon-shutdown"></i>&nbsp;Logout</app-link></li>
                         <li role="separator" class="divider"></li>
                         <li><app-link href="home/status/"><i class="menu-icon-info"></i>&nbsp;Server Status</app-link></li>
                     </ul>
@@ -117,7 +117,6 @@ Vue.component('app-header', {
     data() {
         return {
             // Python conversions
-            loggedIn: ${json.dumps(loggedIn)},
             recentShows: ${json.dumps(app.SHOWS_RECENT)},
 
             <% has_emby_api_key = json.dumps(app.EMBY_APIKEY != '') %>
@@ -136,6 +135,12 @@ Vue.component('app-header', {
         };
     },
     computed: {
+        loggedIn() {
+            return this.$store.state.auth.isAuthenticated;
+        },
+        username() {
+            return this.$store.state.auth.user.username;
+        },
         topMenu() {
             // This is a workaround, until we're able to use VueRouter to determine that.
             // The possible `topmenu` values are: config, history, schedule, system, home, manage, login [unused]

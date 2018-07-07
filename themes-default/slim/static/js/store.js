@@ -425,7 +425,7 @@ const store = new Puex({
             commit(LOGIN_PENDING);
 
             // @TODO: Add real JWT login
-            const apiLogin = () => Promise.resolve({ username: 'admin' });
+            const apiLogin = () => Promise.resolve(credentials);
 
             apiLogin(credentials).then(user => {
                 return commit(LOGIN_SUCCESS, user);
