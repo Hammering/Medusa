@@ -71,6 +71,7 @@ def config(monkeypatch, app_config):
     config_data['namingForceFolders'] = bool(app.NAMING_FORCE_FOLDERS)
     config_data['subtitles'] = NonEmptyDict()
     config_data['subtitles']['enabled'] = bool(app.USE_SUBTITLES)
+    config_data['recentShows'] = app.SHOWS_RECENT
 
     config_data['news'] = NonEmptyDict()
     config_data['news']['lastRead'] = app.NEWS_LAST_READ

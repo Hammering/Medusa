@@ -289,7 +289,8 @@ const store = new Puex({
             pid: null,
             os: null,
             anonRedirect: null,
-            logDir: null
+            logDir: null,
+            recentShows: []
         },
         // Loaded show list
         // New shows can be added via

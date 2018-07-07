@@ -247,6 +247,7 @@ class DataGenerator(object):
         section_data['namingForceFolders'] = bool(app.NAMING_FORCE_FOLDERS)
         section_data['subtitles'] = NonEmptyDict()
         section_data['subtitles']['enabled'] = bool(app.USE_SUBTITLES)
+        section_data['recentShows'] = app.SHOWS_RECENT
 
         section_data['news'] = NonEmptyDict()
         section_data['news']['lastRead'] = app.NEWS_LAST_READ
