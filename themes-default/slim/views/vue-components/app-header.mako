@@ -25,7 +25,7 @@
                         <li><app-link href="home/postprocess/"><i class="menu-icon-postprocess"></i>&nbsp;Manual Post-Processing</app-link></li>
                         <template v-if="recentShows.length > 0">
                         <li role="separator" class="divider"></li>
-                        <li v-for="recentShow in recentShows">
+                        <li v-for="recentShow in recentShows" :key="recentShow.link">
                             <app-link :href="recentShow.link">
                                 <i class="menu-icon-addshow"></i>&nbsp;{{ recentShow.name }}
                             </app-link>
@@ -121,15 +121,15 @@ Vue.component('app-header', {
             hasEmbyApiKey: ${has_emby_api_key},
 
             // JS Only
-            topmenuMapping: [
-                [ 'system', ['/home/restart', '/home/status', '/errorlogs', '/changes', '/news', '/IRC'] ],
-                [ 'home', ['/home', '/addShows', '/addRecommended'] ],
-                [ 'config', ['/config'] ],
-                [ 'history', ['/history'] ],
-                [ 'schedule', ['/schedule'] ],
-                [ 'manage', ['/manage'] ],
-                [ 'login', ['/login'] ]
-            ]
+            topMenuMapping: {
+                system: ['/home/restart', '/home/status', '/errorlogs', '/changes', '/news', '/IRC'],
+                home: ['/home', '/addShows', '/addRecommended'],
+                config: ['/config'],
+                history: ['/history'],
+                schedule: ['/schedule'],
+                manage: ['/manage'],
+                login: ['/login']
+            }
         };
     },
     computed: {
@@ -153,15 +153,17 @@ Vue.component('app-header', {
         topMenu() {
             // This is a workaround, until we're able to use VueRouter to determine that.
             // The possible `topmenu` values are: config, history, schedule, system, home, manage, login [unused]
-            const { topmenuMapping } = this;
+            const { topMenuMapping } = this;
             const { pathname } = window.location;
 
-            for (item of topmenuMapping) {
-                const [ topmenu, routes ] = item; // Unpacking
-                for (route of routes) {
-                    if (pathname.includes(route)) return topmenu;
+            for (const item of Object.entries(topMenuMapping)) {
+                const [topmenu, routes] = item; // Unpacking
+                for (const route of routes) {
+                    if (pathname.includes(route)) {
+                        return topmenu;
+                    }
                 }
-            };
+            }
             return null;
         },
         toolsBadgeCount() {
@@ -172,8 +174,12 @@ Vue.component('app-header', {
         toolsBadgeClass() {
             const { config } = this;
             const { logs } = config;
-            if (logs.numErrors > 0) return ' btn-danger';
-            if (logs.numWarnings > 0) return ' btn-warning';
+            if (logs.numErrors > 0) {
+                return ' btn-danger';
+            }
+            if (logs.numWarnings > 0) {
+                return ' btn-warning';
+            }
             return '';
         },
         warningLevel() {
@@ -184,7 +190,7 @@ Vue.component('app-header', {
         },
         linkVisible() {
             const { config } = this;
-            const { plex, kodi, emby, torrents, failedDownloads, subtitles, postProcess } = config;
+            const { plex, kodi, emby, torrents, failedDownloads, subtitles, postProcess, hasEmbyApiKey } = config;
 
             return {
                 plex: plex.server.enabled && plex.server.host.length !== 0,
