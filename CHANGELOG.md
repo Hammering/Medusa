@@ -17,6 +17,7 @@
 **Fixes**
 
 - Fixed Emby test notification ([#4622](https://github.com/pymedusa/Medusa/pull/4622))
+- Fixed unhandled request error on Add Existing Show ([#4639](https://github.com/pymedusa/Medusa/pull/4639))
 - _Simple message describing the fix, and a link to the pull request._
 
 ### [**Previous versions**](https://github.com/pymedusa/medusa.github.io/blob/master/news/CHANGES.md)
